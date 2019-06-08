@@ -49,11 +49,11 @@
                 <v-btn
                 color="purple"
                 dark
-                @click="encrpytContents()"
+                @click="createRecord()"
                 >
                 Submit
                 </v-btn>
-              </template>              
+              </template>
               <v-list>
                 <v-subheader>Submission success</v-subheader>
               </v-list>
@@ -74,7 +74,6 @@
 </template>
 
 <script>
-import bsv from 'bsv';
 import datapay from 'datapay';
 export default {
   data () {
@@ -95,12 +94,12 @@ export default {
   methods: {
     encrpytContents (){
       // encrpyt the information by using the API
-      
+
       if (this.checkbox1 == false) {
         alert("You must check the checkbox!")
-        return  
+        return
       }
-      
+
 
       var CryptoJS = require("crypto-js");
       var obj = {
@@ -139,12 +138,18 @@ export default {
       var config = {
         data: [this.address, this.contents],
         pay: {
-          key: key, // private key
+          key: 'L3ireqzmJB8V83XGAgWdsyZkSwCd5gjQRMubWEpeQpGa74RVwvmG', // private key
           rpc: "https://api.bitindex.network",
         }
       };
       await datapay.send(config, function (err, res) {
         vm.alertShow = true;
+
+        if(vm.alertShow){
+          alert('send success!');
+          console.log(err.toString());
+          console.log(res.toString());
+        }
       });
     },
   },
