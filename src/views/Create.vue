@@ -43,12 +43,7 @@
               label="Any comments"
               ></v-combobox>
             </v-flex>
-            <v-flex xs12>
-              <v-combobox
-
-              label="Confirmation: Print 'Yes' if you checked all the information is right."
-              ></v-combobox>
-            </v-flex>
+              <v-checkbox v-model="checkbox1" :label="`I've read the trerms: ${checkbox1.toString()}`"></v-checkbox>
             <v-bottom-sheet>
               <template v-slot:activator>
                 <v-btn
@@ -92,6 +87,7 @@ export default {
       memo:'',
       contents: '',
       mystring: '',
+      checkbox1: false,
       show_contents:[],
     };
   },
@@ -115,7 +111,6 @@ export default {
       // Need to get the mypassword
       var myPassword = 'L3ireqzmJB8V83XGAgWdsyZkSwCd5gjQRMubWEpeQpGa74RVwvmG';
       var result = CryptoJS.AES.encrypt(myString, myPassword);
-
       //console.log(result.toString());
       //alert(result)
       this.contents = result.toString();
@@ -133,7 +128,6 @@ export default {
       }
       this.encryptContents();
       var key = getPassword();
-
       var config = {
         data: [this.address, this.contents],
         pay: {
