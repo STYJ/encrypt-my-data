@@ -43,10 +43,7 @@
               label="Any comments"
               ></v-combobox>
             </v-flex>
-            <v-checkbox
-              v-model="checkbox"
-              :label="`Checkbox 1: ${checkbox.toString()}`"
-            ></v-checkbox>
+              <v-checkbox v-model="checkbox1" :label="`I've read the trerms: ${checkbox1.toString()}`"></v-checkbox>
             <v-bottom-sheet>
               <template v-slot:activator>
                 <v-btn
@@ -90,6 +87,7 @@ export default {
       memo:'',
       contents: '',
       mystring: '',
+      checkbox1: false,
       show_contents:[],
     };
   },
