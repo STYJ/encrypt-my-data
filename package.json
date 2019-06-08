@@ -11,10 +11,11 @@
     "bsv": "^0.27.1",
     "core-js": "^2.6.5",
     "crypto-js": "^3.1.9-1",
+    "datapay": "0.0.15",
     "querystringify": "^2.1.1",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
-    "vuetify": "^1.5.5",
+    "vuetify": "^1.5.14",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
