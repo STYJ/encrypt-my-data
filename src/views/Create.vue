@@ -43,7 +43,7 @@
               label="Any comments"
               ></v-combobox>
             </v-flex>
-              <v-checkbox v-model="checkbox1" :label="`I'm sure that everything is correct: ${checkbox1.toString()}`"></v-checkbox>
+              <v-checkbox v-model="checkbox1" :label="`I'm sure that everything is correct.`"></v-checkbox>
             <v-bottom-sheet>
               <template v-slot:activator>
                 <v-btn
@@ -58,14 +58,10 @@
                 <v-subheader>Submission success</v-subheader>
               </v-list>
             </v-bottom-sheet>
-            <p> {{ contents }}</p>
-            <p>{{ show_contents }}</p>
-            <p>{{ mystring }}</p>
+            <p>{{ txHash }}</p>
             <router-view></router-view>
-          </v-layout>
         </v-container>
       </v-content>
-      <v-footer app></v-footer>
     </v-app>
 
 
@@ -88,6 +84,7 @@ export default {
       contents: '',
       mystring: '',
       checkbox1: false,
+      txHash:'',
       show_contents:[],
     };
   },
@@ -99,7 +96,6 @@ export default {
         alert("You must check the checkbox!")
         return
       }
-
 
       var CryptoJS = require("crypto-js");
       var obj = {
@@ -125,30 +121,33 @@ export default {
     },
     getPassword() {
       // get mypassword
+      key = '';
       return key;
     },
     async createRecord() {
       var vm = this;
       if(this.title === '' || this.username === '' || this.password === '') {
-          alert('title, username or password cannot be null');
+          alert('Title, username or password cannot be null');
           return;
       }
-      this.encryptContents();
-      var key = getPassword();
+      this.encrpytContents();
+      console.log('encrypt success!')
+      //var key = getPassword();
       var config = {
         data: [this.address, this.contents],
         pay: {
-          key: 'L3ireqzmJB8V83XGAgWdsyZkSwCd5gjQRMubWEpeQpGa74RVwvmG', // private key
+          key: '', // private key
           rpc: "https://api.bitindex.network",
         }
       };
       await datapay.send(config, function (err, res) {
+        vm.txHash = res;
         vm.alertShow = true;
 
+        var txHash = vm.txHash
         if(vm.alertShow){
-          alert('send success!');
-          console.log(err.toString());
-          console.log(res.toString());
+          alert('Transaction success! Hash is '+ txHash);
+          // console.log(res.toString());
         }
       });
     },
