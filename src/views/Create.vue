@@ -43,10 +43,12 @@
               label="Any comments"
               ></v-combobox>
             </v-flex>
-            <v-checkbox
-              v-model="checkbox"
-              :label="`Checkbox 1: ${checkbox.toString()}`"
-            ></v-checkbox>
+            <v-flex xs12>
+              <v-combobox
+
+              label="Confirmation: Print 'Yes' if you checked all the information is right."
+              ></v-combobox>
+            </v-flex>
             <v-bottom-sheet>
               <template v-slot:activator>
                 <v-btn
