@@ -43,24 +43,29 @@
               label="Any comments"
               ></v-combobox>
             </v-flex>
-          <v-bottom-sheet>
-            <template v-slot:activator>
-              <v-btn
-              color="purple"
-              dark
-              @click="encrpytContents()"
-              >
-              Submit
-              </v-btn>
-            </template>
-            <v-list>
-              <v-subheader>Submission success</v-subheader>
-            </v-list>
-          </v-bottom-sheet>
-          <p> {{ contents }}</p>
-          <p>{{ show_contents }}</p>
-          <p>{{ mystring }}</p>
-          <router-view></router-view>
+            <v-checkbox
+              v-model="checkbox"
+              :label="`Checkbox 1: ${checkbox.toString()}`"
+            ></v-checkbox>
+            <v-bottom-sheet>
+              <template v-slot:activator>
+                <v-btn
+                color="purple"
+                dark
+                @click="encrpytContents()"
+                >
+                Submit
+                </v-btn>
+              </template>
+              <v-list>
+                <v-subheader>Submission success</v-subheader>
+              </v-list>
+            </v-bottom-sheet>
+            <p> {{ contents }}</p>
+            <p>{{ show_contents }}</p>
+            <p>{{ mystring }}</p>
+            <router-view></router-view>
+          </v-layout>
         </v-container>
       </v-content>
       <v-footer app></v-footer>
