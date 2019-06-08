@@ -1,75 +1,194 @@
 <template>
-  <v-layout row>
-    <v-flex xs12 sm6 offset-sm3>
-      <v-card>
-        <v-toolbar color="light-blue" dark>
-          <v-toolbar-side-icon></v-toolbar-side-icon>
+  <div class="page-body">
+    <v-layout v-if='imported' row>
+      <v-flex xs12 sm6 offset-sm3 >
+        <v-card>
+          <v-toolbar color="light-blue" dark>
+            <v-toolbar-side-icon></v-toolbar-side-icon>
+            <v-toolbar-title>My secrets</v-toolbar-title>
+            <v-spacer></v-spacer>
+          </v-toolbar>
 
-          <v-toolbar-title>My secrets</v-toolbar-title>
+          <v-list two-line subheader>
+            <v-subheader inset>Passwords</v-subheader>
+            <v-list-tile
+              v-for="item in dataList"
+              :key="item.title"
+              avatar
+              @click=""
+            >
+              <v-list-tile-avatar>
+                <v-icon 
+                  :class="item.iconClass"
+                  @click="openBlockchainBrowser(item.txid)"
+                >{{ item.icon }}</v-icon>
+              </v-list-tile-avatar>
 
-          <v-spacer></v-spacer>
-        </v-toolbar>
+              <v-list-tile-content
+                  @click.stop="openDetailDialog(item)"
+              >
+                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                <v-list-tile-sub-title>{{ item.subtitle }} {{ item.height }}</v-list-tile-sub-title>
+              </v-list-tile-content>
 
-        <v-list two-line subheader>
-          <v-subheader inset>Passwords</v-subheader>
-          <v-list-tile
-            v-for="item in dataList"
-            :key="item.title"
-            avatar
-            @click=""
-          >
-            <v-list-tile-avatar>
-              <v-icon :class="item.iconClass">{{ item.icon }}</v-icon>
-            </v-list-tile-avatar>
+              <v-list-tile-action>
+                <v-btn icon ripple>
+                  <v-icon @click="openNewPage(item.url)" color="grey lighten-1">link</v-icon>
+                </v-btn>
+              </v-list-tile-action>
+            </v-list-tile>
 
-            <v-list-tile-content>
-              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-              <v-list-tile-sub-title>{{ item.subtitle }}</v-list-tile-sub-title>
-            </v-list-tile-content>
-
-            <v-list-tile-action>
-              <v-btn icon ripple>
-                <v-icon @click="openNewPage(item.url)" color="grey lighten-1">link</v-icon>
+            <div class="text-xs-center">
+              <v-btn 
+                outline 
+                round 
+                color="primary" 
+                @click="loadDataList()"
+                :disabled="loadingDialog"
+                dark>
+                  <span>more</span>
               </v-btn>
-            </v-list-tile-action>
-          </v-list-tile>
+            </div>
+            <v-divider inset></v-divider>
 
-          <div class="text-xs-center">
-            <v-btn outline round color="primary" dark>
-                <span>more</span>
+            <v-subheader inset>Files</v-subheader>
+
+            <v-list-tile
+              v-for="item in examples"
+              :key="item.title"
+              avatar
+              @click=""
+            >
+              <v-list-tile-avatar>
+                <v-icon :class="[item.iconClass]">{{ item.icon }}</v-icon>
+              </v-list-tile-avatar>
+
+              <v-list-tile-content>
+                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                <v-list-tile-sub-title>{{ item.subtitle }}</v-list-tile-sub-title>
+              </v-list-tile-content>
+
+              <v-list-tile-action>
+                <v-btn icon ripple>
+                  <v-icon color="grey lighten-1">info</v-icon>
+                </v-btn>
+              </v-list-tile-action>
+            </v-list-tile>
+            
+          </v-list>
+        </v-card>
+      </v-flex>
+
+      <v-dialog
+        v-model="dialog"
+        width="500"
+      >
+        <v-card>
+          <v-card-title
+            class="headline grey lighten-2"
+            primary-title
+          >
+            Details 
+          </v-card-title>
+
+          <!-- <v-card-text>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </v-card-text> -->
+
+          <v-card-text>
+            <!-- <v-subheader>User Controls</v-subheader> -->
+            <v-list-tile avatar>
+              <v-list-tile-content>
+                <v-list-tile-title>Transaction Hash: </v-list-tile-title>
+                <v-list-tile-sub-title>
+                  <a 
+                    :href="'https://whatsonchain.com/tx/' + secretDetail.txid"
+                    target="_blank"
+                  >
+                  {{ secretDetail.txid }}
+                  </a>
+                </v-list-tile-sub-title>
+              </v-list-tile-content>
+            </v-list-tile> 
+            <v-list-tile avatar>
+              <v-list-tile-content>
+                <v-list-tile-title>Title: {{ secretDetail.title }}</v-list-tile-title>
+                <v-list-tile-sub-title></v-list-tile-sub-title>
+              </v-list-tile-content>
+            </v-list-tile>          
+            <v-list-tile avatar>
+              <v-list-tile-content>
+                <v-list-tile-title 
+                >
+                Url: <a :href="secretDetail.url" target="_blank">{{ secretDetail.url }}</a>
+                
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>          
+            <v-list-tile avatar>
+              <v-list-tile-content>
+                <v-list-tile-title>Username: {{ secretDetail.username }}</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>          
+            <v-list-tile avatar>
+              <v-list-tile-content>
+                <v-list-tile-title>Password: {{ secretDetail.password }}</v-list-tile-title>
+                <v-list-tile-sub-title></v-list-tile-sub-title>
+              </v-list-tile-content>
+            </v-list-tile>          
+            <v-list-tile avatar>
+              <v-list-tile-content>
+                <v-list-tile-title>Comment:</v-list-tile-title>
+                <v-list-tile-sub-title>{{ secretDetail.comment }}</v-list-tile-sub-title>
+              </v-list-tile-content>
+            </v-list-tile>                    
+          </v-card-text>
+
+          <v-divider></v-divider>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="primary"
+              flat
+              @click="dialog = false"
+            >
+              Gocha!
             </v-btn>
-          </div>
-          <v-divider inset></v-divider>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
 
-          <v-subheader inset>Files</v-subheader>
-
-          <v-list-tile
-            v-for="item in examples"
-            :key="item.title"
-            avatar
-            @click=""
-          >
-            <v-list-tile-avatar>
-              <v-icon :class="[item.iconClass]">{{ item.icon }}</v-icon>
-            </v-list-tile-avatar>
-
-            <v-list-tile-content>
-              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-              <v-list-tile-sub-title>{{ item.subtitle }}</v-list-tile-sub-title>
-            </v-list-tile-content>
-
-            <v-list-tile-action>
-              <v-btn icon ripple>
-                <v-icon color="grey lighten-1">info</v-icon>
-              </v-btn>
-            </v-list-tile-action>
-          </v-list-tile>
-          
-          
-        </v-list>
-      </v-card>
-    </v-flex>
-  </v-layout>
+      <v-dialog
+        v-model="loadingDialog"
+        hide-overlay
+        persistent
+        width="300"
+      >
+        <v-card
+          color="primary"
+          dark
+        >
+          <v-card-text>
+            Please stand by
+            <v-progress-linear
+              indeterminate
+              color="white"
+              class="mb-0"
+            ></v-progress-linear>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
+      
+    </v-layout>
+    <v-alert
+      :value="!imported"
+      type="info"
+      style="margin-top: 40px"
+    >
+      Please Import your seed first, before Getting your Secrets.
+    </v-alert>
+  </div>
 </template>
 
 <script>
@@ -84,25 +203,51 @@
           { icon: 'lock', iconClass: 'grey lighten-1 white--text', title: 'Recipes', subtitle: 'Jan 17, 2014' },
         ],
         examples: [
-          { icon: 'image', iconClass: 'blue white--text', title: 'Vacation itinerary', subtitle: 'Jan 20, 2014' },
-          { icon: 'image', iconClass: 'amber white--text', title: 'Kitchen remodel', subtitle: 'Jan 10, 2014' }
+          { icon: 'image', iconClass: 'blue white--text', title: 'My Private Image', subtitle: 'Jan 20, 2014' },
+          { icon: 'mail', iconClass: 'amber white--text', title: 'Important Mails', subtitle: 'Jan 10, 2014' },
+          { icon: 'file_copy', iconClass: 'green white--text', title: 'My SSH KEY FILE', subtitle: 'Jan 10, 2014' }
         ],
         page: 1,
         loading: false,
         dataList: [],
+        dialog: false,
+        loadingDialog: false,
+        secretDetail: {},
       }
     },
-    created: function() {
+
+    computed: {
+      address() {
+        return this.$store.getters.address;
+      },
+      privateKey() {
+        return this.$store.getters.hdPrivateKey;
+      },
+      imported() {
+        return this.privateKey !== 'Not Connected';
+      }
+    },
+    watch: {
+      loadingDialog (val) {
+        if (!val) return
+
+        setTimeout(() => (this.loadingDialog = false), 4000)
+      },
+      imported (val) {
+        if(!val) {
+          return;
+        }
         this.loadDataList();
+      }
     },
     methods: {
         async loadDataList() {
-            this.loading = true;
+            this.loadingDialog = true
             var query = {
                 'v': 3,
                 'q': {
                     "find": {
-                        "out.e.a": "1LmWGihCJjg1TG7UMC86Fo7DLPiGce1QMw"
+                        "out.e.a": this.address
                     },
                     'limit': 5,
                     'skip': 5 * (this.page - 1),
@@ -124,8 +269,8 @@
         },
 
         addSecrets(resp) {
-            // dealing with unconfirmed txs
-            let unconfirmList = resp.u;
+            // dealing with unconfirmed txs(we need to reverse the unconfirmed to insure the order)
+            let unconfirmList = resp.u.reverse();
             for(var unconfirmTx of unconfirmList) {
                 let txid = unconfirmTx.tx.h;
                 // 检查输出
@@ -140,6 +285,7 @@
                       jsonObj.txid = txid;
                       jsonObj.height = 0;
                       jsonObj.timestamp = 0;
+                      jsonObj.subtitle = 'tx unconfirmed';
                       this.dataList.push(jsonObj);
                   }
                 }catch(e) {
@@ -163,6 +309,7 @@
                       jsonObj.txid = txid;
                       jsonObj.height = height;
                       jsonObj.timestamp = timestamp;
+                      jsonObj.subtitle = new Date(timestamp * 1000).toLocaleString();
                       this.dataList.push(jsonObj);
                   }
                 }catch(e) {
@@ -170,7 +317,7 @@
                 }
                 
             }
-            this.loading = false;
+            this.loadingDialog = false;
         },
         // decrypt the payload and return objects
         decryptPayloads(encrypted){
@@ -192,6 +339,22 @@
           window.open(url, '_blank');
         },
 
+        openBlockchainBrowser(txid) {
+          window.open("https://whatsonchain.com/tx/" + txid, '_blank');
+
+        },
+
+        openDetailDialog(item) {
+           this.dialog = true;
+           this.secretDetail = item;
+        },
+
     },
   }
 </script>
+
+<style scoped>
+  .page-body {
+    min-height : 600px;
+  }
+</style>

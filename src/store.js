@@ -45,7 +45,7 @@ export default new Vuex.Store({
       let mnemonic = Mnemonic.fromRandom();
 
       // Generate hd private key from mnemonic seed
-      let hdPrivateKey = mnemonic.toHDPrivateKey();
+      let hdPrivateKey = mnemonic.toHDPrivateKey().deriveChild("m/44'/0'/0'/0/0").privateKey;
 
       // Generate private key from hd private key
       // var privateKey = hdPrivateKey.privateKey.toString();
@@ -54,7 +54,7 @@ export default new Vuex.Store({
       // var publicKey = hdPrivateKey.publicKey.toString();
 
       // Generate address from hd private key
-      let address = hdPrivateKey.privateKey.toAddress().toString();
+      let address = hdPrivateKey.toAddress().toString();
 
       context.commit('setMnemonic', mnemonic);
       context.commit('setHdPrivateKey', hdPrivateKey);
@@ -69,9 +69,9 @@ export default new Vuex.Store({
         throw(e);
       }
 
-      let hdPrivateKey = mnemonic.toHDPrivateKey();
+      let hdPrivateKey = mnemonic.toHDPrivateKey().deriveChild("m/44'/0'/0'/0/0").privateKey;
 
-      let address = hdPrivateKey.privateKey.toAddress().toString();
+      let address = hdPrivateKey.toAddress().toString();
 
       context.commit('setMnemonic', mnemonic);
       context.commit('setHdPrivateKey', hdPrivateKey);

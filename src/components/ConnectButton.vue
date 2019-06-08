@@ -91,7 +91,7 @@ export default {
           return
         }
         this.connected = true
-        this.buttonName = "Account Details"
+        this.buttonName = "Wallet Details"
         this.mnemonic = this.$store.getters.mnemonic;
         this.title = "BSV Wallet Seed Phrase";
         this.content = `Seed phrase successfully imported!`;
@@ -100,7 +100,7 @@ export default {
     createNew() {
       this.$store.dispatch('createNew');
       this.connected = true;
-      this.buttonName = "Account Details"
+      this.buttonName = "Wallet Details"
       this.mnemonic = this.$store.getters.mnemonic;
       this.title = "BSV Wallet Seed Phrase";
       this.content = `Please store your mnemonic phrase somewhere secure!`;
