@@ -16,40 +16,34 @@
             <v-flex xs12>
               <v-combobox
               v-model="title"
-              :items="items"
               label="Title"
               ></v-combobox>
             </v-flex>
             <v-flex xs12>
               <v-combobox
               v-model="username"
-              :items="items"
               label="Username"
               ></v-combobox>
             </v-flex>
             <v-flex xs12>
               <v-combobox
               v-model="password"
-              :items="items"
               label="Password"
               ></v-combobox>
             </v-flex>
             <v-flex xs12>
               <v-combobox
               v-model="url"
-              :items="items"
               label="Url"
               ></v-combobox>
             </v-flex>
             <v-flex xs12>
               <v-combobox
-              v-model="comments"
-              :items="items"
+              v-model="memo"
               label="Any comments"
               ></v-combobox>
             </v-flex>
-          <p> {{ contents }}</p>
-          <v-bottom-sheet v-model="sheet">
+          <v-bottom-sheet>
             <template v-slot:activator>
               <v-btn
               color="purple"
@@ -60,26 +54,12 @@
               </v-btn>
             </template>
             <v-list>
-              <v-subheader>Open in</v-subheader>
-              <v-list-tile
-                v-for="tile in tiles"
-                :key="tile.title"
-                @click="sheet = false"
-                >
-                <v-list-tile-avatar>
-                  <v-avatar size="32px" tile>
-                    <img
-                    :src="`https://cdn.vuetifyjs.com/images/bottom-sheets/${tile.img}`"
-                    :alt="tile.title"
-                    >
-                  </v-avatar>
-                </v-list-tile-avatar>
-                <v-list-tile-title>{{ tile.title }}</v-list-tile-title>
-              </v-list-tile>
+              <v-subheader>Submission success</v-subheader>
             </v-list>
           </v-bottom-sheet>
-
+          <p> {{ contents }}</p>
           <p>{{ show_contents }}</p>
+          <p>{{ mystring }}</p>
           <router-view></router-view>
         </v-container>
       </v-content>
@@ -102,8 +82,8 @@ export default {
       username:'',
       password:'',
       url:'',
-      comments:'',
-      contents: '',// todo, the type of the encrped contents,
+      memo:'',
+      contents: '',
       mystring: '',
       show_contents:[],
     };
@@ -117,10 +97,12 @@ export default {
         username: this.username,
         password: this.password,
         url: this.url,
-        comments:this.comments,
+        comments:this.memo,
       };
-      this.show_contents = [this.title,this.username, this.password, this.url, this.comments];
+      console.log(this.memo)
+      this.show_contents = [this.title, this.username, this.password, this.url, this.memo];
       var myString = JSON.stringify(obj);
+      this.mystring = myString
       console.log(myString)
       // this.mystring = myString
       // Need to get the mypassword
