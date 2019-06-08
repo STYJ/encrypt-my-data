@@ -19,6 +19,7 @@ export default {
   methods: {
     login() {
       console.log("Should create a pop up for users to import mnemonic or create new account");
+      return this.$store.dispatch('createNew');
     }
   }
 }

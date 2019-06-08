@@ -1,7 +1,9 @@
 <template lang="html">
-  <div class="body">
-    this is my body
-  </div>
+  <v-layout>
+    <v-flex>
+      hello
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>

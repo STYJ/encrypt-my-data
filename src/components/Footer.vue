@@ -1,7 +1,15 @@
 <template lang="html">
-  <div class="footer">
-    this my footer
-  </div>
+  <v-layout justify-space-around shrink wrap id="footer">
+    <v-flex shrink>
+      add more
+    </v-flex>
+    <v-flex shrink>
+      hyperlinks I need more space
+    </v-flex>
+    <v-flex shrink>
+      github
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>

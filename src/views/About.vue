@@ -1,5 +1,17 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <v-layout class="about">
+    <v-flex>
+      <h1>ABOUT</h1>
+    </v-flex>
+  </v-layout>
 </template>
+
+<script>
+// @ is an alias to /src
+
+export default {
+
+};
+</script>
+
+<style lang="css" scoped></style>
