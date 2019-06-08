@@ -1,7 +1,7 @@
 <template>
   <div class="create">
     <v-app>
-      <v-navigation-drawer app></v-navigation-drawer>
+      <!-- <v-navigation-drawer app></v-navigation-drawer> -->
       <v-toolbar app color="brown darken-4" dark>
         <v-toolbar-side-icon></v-toolbar-side-icon>
         <v-toolbar-title>Create new record</v-toolbar-title>
@@ -9,7 +9,7 @@
         <v-spacer></v-spacer>
         <v-btn flat>SIGN IN</v-btn>
         <v-btn color="brown lighten-3">JOIN</v-btn>
-      </v-toolbar&gt;&lt;/template>
+      </v-toolbar>
       <v-content>
         <v-container fluid>
           <v-layout align-center justify-center column fill-height/>
@@ -43,24 +43,29 @@
               label="Any comments"
               ></v-combobox>
             </v-flex>
-          <v-bottom-sheet>
-            <template v-slot:activator>
-              <v-btn
-              color="purple"
-              dark
-              @click="encrpytContents()"
-              >
-              Submit
-              </v-btn>
-            </template>
-            <v-list>
-              <v-subheader>Submission success</v-subheader>
-            </v-list>
-          </v-bottom-sheet>
-          <p> {{ contents }}</p>
-          <p>{{ show_contents }}</p>
-          <p>{{ mystring }}</p>
-          <router-view></router-view>
+            <v-checkbox
+              v-model="checkbox"
+              :label="`Checkbox 1: ${checkbox.toString()}`"
+            ></v-checkbox>
+            <v-bottom-sheet>
+              <template v-slot:activator>
+                <v-btn
+                color="purple"
+                dark
+                @click="encrpytContents()"
+                >
+                Submit
+                </v-btn>
+              </template>
+              <v-list>
+                <v-subheader>Submission success</v-subheader>
+              </v-list>
+            </v-bottom-sheet>
+            <p> {{ contents }}</p>
+            <p>{{ show_contents }}</p>
+            <p>{{ mystring }}</p>
+            <router-view></router-view>
+          </v-layout>
         </v-container>
       </v-content>
       <v-footer app></v-footer>
