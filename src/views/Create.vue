@@ -1,5 +1,6 @@
 <template>
   <div class="create">
+    <p>hello,world!</p>
     <Row>
       <Col span="12">
         <Input v-model="Title" clearable size="large" placeholder="title" />
@@ -65,13 +66,13 @@ export default {
       username:'',
       password:'',
       url:'',
-      contents: // todo, the type of the encrped contents,
+      contents: '',// todo, the type of the encrped contents,
     };
   },
   methods: {
     encrpytContents (){
       // encrpyt the information by using the API
-    }
+    },
     async createRecord() {
       var vm = this;
       if(this.title === '' || this.username === '' || this.password === '') {
