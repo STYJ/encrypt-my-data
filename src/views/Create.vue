@@ -1,9 +1,13 @@
 <template>
   <div class="create">
+    <p>Hello,world!</p>
+    <p> {{ mystring }}</p>
+    <input type="text" v-model="input">
+    <button @click="test()">send</button>
     <Row>
-      <Col span="12">
-        <Input v-model="Title" clearable size="large" placeholder="title" />
-      </Col>
+        <Col span="12">
+            <Input type="text" v-model="Title" clearable size="large" placeholder="title"/>
+        </Col>
     </Row>
     <br>
     <Row>
@@ -51,37 +55,65 @@
 
 <script>
 import bsv from 'bsv';
-import BalanceInfo from '@/components/BalanceInfo';
-import datapay from 'datapay'
+import datapay from 'datapay';
 
 export default {
-  components: {
-    BalanceInfo,
-  },
+
   data () {
     return {
-      address:'',
+      address:'1QkEz7sar8Z2rf9FrGsg9vqpcwv7CKko5',
       title:'',
       username:'',
       password:'',
       url:'',
-      contents: // todo, the type of the encrped contents,
+      contents: '',// todo, the type of the encrped contents,
+      mystring: '',
     };
   },
   methods: {
+    test() {
+      var obj = {
+        title: "title",
+        username: "username",
+        password: "this.password",
+        url: "this.url"
+      };
+      var myString = JSON.stringify(obj);
+      this.mystring = myString;
+    },
     encrpytContents (){
       // encrpyt the information by using the API
-    }
+      var CryptoJS = require("crypto-js");
+      var obj = {
+        title: "title",
+        username: "username",
+        password: "this.password",
+        url: "this.url"
+      };
+      var myString = JSON.stringify(obj);
+      this.mystring = myString
+      // Need to get the mypassword
+      myPassword = this.getPassword();
+      var contents = CryptoJS.AES.encrypt(myString, myPassword);
+      this.contents = contents;
+    },
+    getPassword() {
+      // get my password
+
+    },
     async createRecord() {
       var vm = this;
       if(this.title === '' || this.username === '' || this.password === '') {
           alert('title, username or password cannot be null');
           return;
       }
+
+      this.encryptContents();
+
       var config = {
         data: [this.address, this.contents],
         pay: {
-          key: // private key
+          key:'', // private key
           rpc: "https://api.bitindex.network",
         }
       };
@@ -91,13 +123,8 @@ export default {
     },
   },
 
-  mounted: function() {
-    this.$refs.BalanceInfo.getBalance();
-  },
 
 };
 </script>
 
-<style>
-
-</style>
+<style lang="css" scoped></style>
