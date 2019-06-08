@@ -1,54 +1,20 @@
 <template>
   <div class="create">
     <p>Hello,world!</p>
-    <p> {{ mystring }}</p>
-    <input type="text" v-model="input">
-    <button @click="test()">send</button>
-    <Row>
-        <Col span="12">
-            <Input type="text" v-model="Title" clearable size="large" placeholder="title"/>
-        </Col>
-    </Row>
-    <br>
-    <Row>
-      <Col span="12">
-        <Input v-model="Username" clearable size="large" placeholder="username" />
-      </Col>
-    </Row>
-    <br>
-    <Row>
-      <Col span="12">
-        <Input v-model="Password" clearable size="large" placeholder="password" />
-      </Col>
-    </Row>
-    <br>
-    <Row>
-      <Col span="24">
-        <Input v-model="Comment" type="textarea" :rows="15" placeholder="Enter some comments..." />
-      </Col>
-    </Row>
-    <br>
-    <Row>
-      <Col span=“8”>
-        <Button
-          type="info"
-          @click="createRecord"
-          ghost>
-          Publish
-        </Button>
-      </Col>
-      <Col span="8">
-        <BalanceInfo ref="BalanceInfo" :address=address />
-      </Col>
-    </Row>
-    <br>
-    <Row>
-      <Col span="24">
-        <Alert v-show="alertShow" closable>
-          Submit success!
-        </Alert>
-      </Col>
-    </Row>
+    <p> {{ contents }}</p>
+    <Input v-model="title" clearable size="large" placeholder="title" />
+    <Input v-model="username" clearable size="large" placeholder="username" />
+    <Input v-model="password" clearable size="large" placeholder="password" />
+    <Input v-model="url" clearable size="large" placeholder="url" />
+    <Input v-model="comments" clearable size="large" placeholder="comments" />
+    <button @click="encrpytContents()">send</button>
+    <p> {{ title }}</p>
+    <p> {{ username }}</p>
+    <p> {{ password }}</p>
+    <p> {{ url }}</p>
+    <p> {{ comments }}</p>
+
+
   </div>
 
 </template>
@@ -64,6 +30,7 @@ export default {
       username:'',
       password:'',
       url:'',
+      comments:'',
       contents: '',// todo, the type of the encrped contents,
       mystring: '',
     };
@@ -83,20 +50,26 @@ export default {
       // encrpyt the information by using the API
       var CryptoJS = require("crypto-js");
       var obj = {
-        title: "title",
-        username: "username",
-        password: "this.password",
-        url: "this.url"
+        title: this.title,
+        username: "poming",
+        password: "123456",
+        url: "http://google.com",
+        comments:this.comments,
       };
       var myString = JSON.stringify(obj);
-      this.mystring = myString
+      console.log(myString)
+      // this.mystring = myString
       // Need to get the mypassword
-      myPassword = this.getPassword();
-      var contents = CryptoJS.AES.encrypt(myString, myPassword);
-      this.contents = contents;
+      var myPassword = 'L3ireqzmJB8V83XGAgWdsyZkSwCd5gjQRMubWEpeQpGa74RVwvmG';
+      var result = CryptoJS.AES.encrypt(myString, myPassword);
+
+      //console.log(result.toString());
+      //alert(result)
+      this.contents = result.toString();
+      // console.log(contents);
     },
     getPassword() {
-      // get my password
+      // get mypassword
     },
     async createRecord() {
       var vm = this;
