@@ -43,7 +43,7 @@
               label="Any comments"
               ></v-combobox>
             </v-flex>
-              <v-checkbox v-model="checkbox1" :label="`I've read the trerms: ${checkbox1.toString()}`"></v-checkbox>
+              <v-checkbox v-model="checkbox1" :label="`I'm sure that everything is correct: ${checkbox1.toString()}`"></v-checkbox>
             <v-bottom-sheet>
               <template v-slot:activator>
                 <v-btn
@@ -53,7 +53,7 @@
                 >
                 Submit
                 </v-btn>
-              </template>
+              </template>              
               <v-list>
                 <v-subheader>Submission success</v-subheader>
               </v-list>
@@ -78,6 +78,7 @@ import bsv from 'bsv';
 import datapay from 'datapay';
 export default {
   data () {
+    console.log("hehe")
     return {
       address:'1QkEz7sar8Z2rf9FrGsg9vqpcwv7CKko5',
       title:'',
@@ -94,6 +95,13 @@ export default {
   methods: {
     encrpytContents (){
       // encrpyt the information by using the API
+      
+      if (this.checkbox1 == false) {
+        alert("You must check the checkbox!")
+        return  
+      }
+      
+
       var CryptoJS = require("crypto-js");
       var obj = {
         title: this.title,
