@@ -2,17 +2,14 @@
   <div class="create">
     <p>Hello,world!</p>
     <p> {{ contents }}</p>
-    <Input v-model="title" clearable size="large" placeholder="title" />
-    <Input v-model="username" clearable size="large" placeholder="username" />
-    <Input v-model="password" clearable size="large" placeholder="password" />
-    <Input v-model="url" clearable size="large" placeholder="url" />
-    <Input v-model="comments" clearable size="large" placeholder="comments" />
+
+    <input type="text" v-model="title" placeholder="title">
+    <input type="text" v-model="username" placeholder="username">
+    <input type="text" v-model="password" placeholder="password">
+    <input type="text" v-model="url" placeholder="url">
+    <input type="text" v-model="comments" placeholder="comments">
     <button @click="encrpytContents()">send</button>
-    <p> {{ title }}</p>
-    <p> {{ username }}</p>
-    <p> {{ password }}</p>
-    <p> {{ url }}</p>
-    <p> {{ comments }}</p>
+    <p>{{ show_contents }}</p>
 
 
   </div>
@@ -33,29 +30,21 @@ export default {
       comments:'',
       contents: '',// todo, the type of the encrped contents,
       mystring: '',
+      show_contents:[],
     };
   },
   methods: {
-    test() {
-      var obj = {
-        title: "title",
-        username: "username",
-        password: "this.password",
-        url: "this.url"
-      };
-      var myString = JSON.stringify(obj);
-      this.mystring = myString;
-    },
     encrpytContents (){
       // encrpyt the information by using the API
       var CryptoJS = require("crypto-js");
       var obj = {
         title: this.title,
-        username: "poming",
-        password: "123456",
-        url: "http://google.com",
+        username: this.username,
+        password: this.password,
+        url: this.url,
         comments:this.comments,
       };
+      this.show_contents = [this.title,this.username, this.password, this.url, this.comments];
       var myString = JSON.stringify(obj);
       console.log(myString)
       // this.mystring = myString
