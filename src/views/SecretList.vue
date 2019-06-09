@@ -51,7 +51,7 @@
             </div>
             <v-divider inset></v-divider>
 
-            <v-subheader inset>Files</v-subheader>
+            <v-subheader inset>Confidential Files (coming soon)</v-subheader>
 
             <v-list-tile
               v-for="item in examples"
@@ -112,7 +112,7 @@
             </v-list-tile> 
             <v-list-tile avatar>
               <v-list-tile-content>
-                <v-list-tile-title>Title: {{ secretDetail.title }}</v-list-tile-title>
+                <v-list-tile-title>Title: <b>{{ secretDetail.title }}</b></v-list-tile-title>
                 <v-list-tile-sub-title></v-list-tile-sub-title>
               </v-list-tile-content>
             </v-list-tile>          
@@ -127,19 +127,18 @@
             </v-list-tile>          
             <v-list-tile avatar>
               <v-list-tile-content>
-                <v-list-tile-title>Username: {{ secretDetail.username }}</v-list-tile-title>
+                <v-list-tile-title>Username: <b>{{ secretDetail.username }}</b></v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>          
             <v-list-tile avatar>
               <v-list-tile-content>
-                <v-list-tile-title>Password: {{ secretDetail.password }}</v-list-tile-title>
+                <v-list-tile-title>Password: <b>{{ secretDetail.password }}</b></v-list-tile-title>
                 <v-list-tile-sub-title></v-list-tile-sub-title>
               </v-list-tile-content>
             </v-list-tile>          
             <v-list-tile avatar>
               <v-list-tile-content>
-                <v-list-tile-title>Comment:</v-list-tile-title>
-                <v-list-tile-sub-title>{{ secretDetail.comment }}</v-list-tile-sub-title>
+                <v-list-tile-title>Comment: <b>{{ secretDetail.comments }}</b></v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>                    
           </v-card-text>
@@ -221,7 +220,7 @@
         return this.$store.getters.address;
       },
       privateKey() {
-        return this.$store.getters.hdPrivateKey;
+        return this.$store.getters.hdPrivateKey.toString();
       },
       imported() {
         return this.privateKey !== 'Not Connected';
@@ -251,7 +250,7 @@
                     },
                     'limit': 5,
                     'skip': 5 * (this.page - 1),
-                    "project": { "tx.h": 1, "out.s5":1,"out.s6":1, "blk": 1 }
+                    "project": { "tx.h": 1, "out.s2":1, "blk": 1 }
                 }
             };
             var b64 = btoa(JSON.stringify(query));
@@ -277,10 +276,10 @@
                 let outputs = unconfirmTx.out;
                 try {
                   for (let output of outputs) {
-                      if (!output.s6) {
+                      if (!output.s2) {
                           continue;
                       }
-                      let contentEncrypted = output.s6;
+                      let contentEncrypted = output.s2;
                       let jsonObj = this.decryptPayloads(contentEncrypted);
                       jsonObj.txid = txid;
                       jsonObj.height = 0;
@@ -301,10 +300,10 @@
                 let outputs = confirmTx.out;
                 try{
                   for (let output of outputs) {
-                      if (!output.s6) {
+                      if (!output.s2) {
                           continue;
                       }
-                      let contentEncrypted = output.s6;
+                      let contentEncrypted = output.s2;
                       let jsonObj = this.decryptPayloads(contentEncrypted);
                       jsonObj.txid = txid;
                       jsonObj.height = height;
@@ -323,7 +322,7 @@
         decryptPayloads(encrypted){
           try{
             // todo import password
-            let jsonString = cryptoJs.AES.decrypt(encrypted, 'L3ireqzmJB8V83XGAgWdsyZkSwCd5gjQRMubWEpeQpGa74RVwvmG').toString(cryptoJs.enc.Utf8);
+            let jsonString = cryptoJs.AES.decrypt(encrypted, this.privateKey).toString(cryptoJs.enc.Utf8);
             let result = JSON.parse(jsonString);
             result.icon =  'lock'
             result.iconClass = 'grey lighten-1 white--text';
