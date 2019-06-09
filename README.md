@@ -1,7 +1,7 @@
 # encrypt-my-data
 ## Project Description
 ### Inspiration
-The Need for Password Managers is because we have too many accounts! We have too many accounts! Even taking a small subcategory of accounts, we still have too many, we don’t want to use the same password because if one account gets compromised, then all the accounts get compromised, so we need password managers to keep track of all the different passwords. However, centralization leaves databases vulnerable to attack. We need to trust the databases and companies. Malicious Employee may also be a problem...<br/>
+The need for password managers is because we have too many accounts! We have too many accounts! Even taking a small subcategory of accounts, we still have too many, we don’t want to use the same password because if one account gets compromised, then all the accounts get compromised, so we need password managers to keep track of all the different passwords. However, centralization leaves databases vulnerable to attack. We need to trust the databases and companies. Malicious Employee may also be a problem...<br/>
 ### What it does
 To solve this problem, we developed a password manager utilizing blockchain technology. Anyone can put their encrypted account password to the blockchain using this software, and retreive the decrypted plain text account password when as they need it.<br/>
 ### How we built it
@@ -18,7 +18,7 @@ Vuejs, Javascript.<br/>
 * Allow also images and text to be encrypted and saved to the blockchain<br/>
 
 ### Authors
-This work is done by Qiming He, Laige Peng, Simon Tan, Chang Yu, and Poming Lee<br/>
+This work is done by Qiming He, Laige Peng, Simon Tan, Chang Yu, and Poming Lee.<br/>
 This is for the world, Enjoy!<br/>
 
 ## Project setup
