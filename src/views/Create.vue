@@ -35,11 +35,18 @@
       <v-bottom-sheet>
         <template v-slot:activator>
           <v-btn
-          color="purple"
+          color="green"
           dark
           @click="createRecord()"
           >
           Submit
+          </v-btn>
+          <v-btn
+          color="orange"
+          dark
+          @click="goBack()"
+          >
+          Cancel
           </v-btn>
         </template>
         <v-list>
@@ -167,11 +174,9 @@ export default {
           else {
             vm.txHash = res;
             vm.alertShow = true;
-
-            var txHash = vm.txHash
-
-            var goback = vm.goBack();
-            setTimeout(goback,5000);
+            setTimeout( function(){
+              vm.goBack()
+            },3000);
           }
         }
       );
