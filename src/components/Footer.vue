@@ -6,12 +6,12 @@
       </v-btn>
     </v-flex>
     <v-flex shrink>
-      <v-btn icon icon href="https://facebook.com" target="_blank">
+      <v-btn icon href="https://facebook.com" target="_blank">
         <v-icon>fab fa-facebook</v-icon>
       </v-btn>
     </v-flex>
     <v-flex shrink>
-      <v-btn icon icon href="https://twitter.com" target="_blank">
+      <v-btn icon href="https://twitter.com" target="_blank">
         <v-icon>fab fa-twitter</v-icon>
       </v-btn>
     </v-flex>

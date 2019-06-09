@@ -1,6 +1,6 @@
 <template lang="html">
   <v-layout align-center justify-end wrap id="login">
-    <v-flex  xs4 >
+    <v-flex>
       <v-card flat color="transparent">
         <v-card-text>
           <p class="text-xs-right">
