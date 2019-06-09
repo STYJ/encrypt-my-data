@@ -1,5 +1,5 @@
 <template>
-  <div class="page-body">
+  <v-flex class="page-body">
     <v-layout v-if='imported' row>
       <v-flex xs12 sm6 offset-sm3 >
         <v-card>
@@ -185,14 +185,17 @@
       </v-dialog>
       
     </v-layout>
-    <v-alert
-      :value="!imported"
-      type="info"
-      style="margin-top: 40px"
-    >
-      Please Import your seed first, before Getting your Secrets.
+    <v-flex>
+      <v-alert
+        :value="!imported"
+        type="info"
+        style="margin-top: 50px"
+      >
+        Please Import your seed first, before Getting your Secrets.
     </v-alert>
-  </div>
+    </v-flex>
+    
+  </v-flex>
 </template>
 
 <script>
