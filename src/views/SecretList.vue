@@ -4,7 +4,12 @@
       <v-flex xs12 sm6 offset-sm3 >
         <v-card>
           <v-toolbar color="light-blue" dark>
-            <v-toolbar-side-icon></v-toolbar-side-icon>
+            <v-toolbar-side-icon 
+              @click="routeToCreate()"
+            >
+              <v-icon medium>add_circle</v-icon>
+            
+            </v-toolbar-side-icon>
             <v-toolbar-title>My secrets</v-toolbar-title>
             <v-spacer></v-spacer>
           </v-toolbar>
@@ -239,6 +244,12 @@
         this.loadDataList();
       }
     },
+    created: function(){
+      if(!this.imported) {
+        return;
+      }
+      this.loadDataList();
+    },
     methods: {
         async loadDataList() {
             this.loadingDialog = true
@@ -347,6 +358,10 @@
            this.dialog = true;
            this.secretDetail = item;
         },
+
+        routeToCreate() {
+          this.$router.push("/create");
+        }
 
     },
   }
