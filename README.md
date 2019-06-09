@@ -6,7 +6,7 @@ The need for password managers is because we have too many accounts! We have too
 To solve this problem, we developed a password manager utilizing blockchain technology. Anyone can put their encrypted account password to the blockchain using this software, and retreive the decrypted plain text account password when as they need it.<br/>
 ### How we built it
 The software encrypts passwords using the private key derived from a personal wallet (AES Encryption). The software uploads encrypted passwords as a transaction to a public blockchain. The software pulls the encrypted password from the blockchain and decrypt with private key to get the passwords for external use.<br/>
-### Accomplishments that We're proud of
+### Accomplishments that we're proud of
 This project greatly enhance the security for people in storing their password. <br/>
 
 ### Built with
