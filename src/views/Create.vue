@@ -32,40 +32,23 @@
         ></v-combobox>
       </v-flex>
       <v-checkbox v-model="checkbox1" :label="`I'm sure that everything is correct.`"></v-checkbox>
-      <v-bottom-sheet>
-        <template v-slot:activator>
-          <v-btn
-          color="green"
-          dark
-          @click="createRecord()"
-          >
-          Submit
-          </v-btn>
-          <v-btn
-          color="orange"
-          dark
-          @click="goBack()"
-          >
-          Cancel
-          </v-btn>
-        </template>
-        <v-list>
-          <v-subheader>Submission success</v-subheader>
-        </v-list>
-      </v-bottom-sheet>
+      <v-flex xs3>
+        <v-btn color="success" @click="createRecord()">Submit</v-btn>
+        <v-btn color="warning" @click="goBack()">Cancel</v-btn>
+      </v-flex>
       <v-alert
         :value="alertShow"
-        type="info"
+        type="success"
         style="margin-top: 40px"
         >
         Transaction success! The hash is {{ txHash }}.
       </v-alert>
       <v-alert
-        :value="err"
-        type="info"
+        :value="error_message"
+        type="warning"
         style="margin-top: 40px"
         >
-        Transaction failed!
+        {{ error_message }}
       </v-alert>
       <router-view></router-view>
     </v-layout>
@@ -104,6 +87,7 @@ export default {
       show_contents:[],
       alertShow:false,
       err: false,
+      error_message:'',
     };
   },
   computed: {
@@ -121,11 +105,6 @@ export default {
   methods: {
     encrpytContents (){
       // encrpyt the information by using the API
-
-      if (this.checkbox1 == false) {
-        alert("You must check the checkbox!")
-        return
-      }
 
       var CryptoJS = require("crypto-js");
       var obj = {
@@ -153,8 +132,12 @@ export default {
 
     async createRecord() {
       var vm = this;
+      if (this.checkbox1 == false) {
+        this.error_message = 'Please check the checkbox!';
+        return;
+      }
       if(this.title === '' || this.username === '' || this.password === '') {
-          alert('Title, username or password cannot be null');
+          this.error_message = 'Title, username or password should not be empty!';
           return;
       }
       this.encrpytContents();
@@ -170,6 +153,7 @@ export default {
       await datapay.send(config, function (err, res) {
           if(err){
             vm.err = true;
+            vm.error_message = 'Transaction failed!'
           }
           else {
             vm.txHash = res;
