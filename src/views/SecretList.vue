@@ -20,7 +20,7 @@
               v-for="item in dataList"
               :key="item.title"
               avatar
-              @click=""
+              @click="doNothing"
             >
               <v-list-tile-avatar>
                 <v-icon 
@@ -62,7 +62,7 @@
               v-for="item in examples"
               :key="item.title"
               avatar
-              @click=""
+              @click="doNothing"
             >
               <v-list-tile-avatar>
                 <v-icon :class="[item.iconClass]">{{ item.icon }}</v-icon>
@@ -361,7 +361,11 @@
 
         routeToCreate() {
           this.$router.push("/create");
-        }
+        },
+
+        doNothing() {
+          return;
+        },
 
     },
   }
