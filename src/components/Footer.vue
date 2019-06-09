@@ -9,8 +9,8 @@
         <font-awesome-icon icon="fab fa-github" />
         Success
       </v-btn>        -->
-      <v-btn color="success" href="https://github.com/STYJ/encrypt-my-data" target="_blank">GitHub</v-btn> 
-      <v-btn color="success" href="https://devpost.com/software/encrypt-my-data" target="_blank">Devpost</v-btn> 
+      <v-btn color="white" href="https://github.com/STYJ/encrypt-my-data" target="_blank">GitHub</v-btn> 
+      <v-btn color="white" href="https://devpost.com/software/encrypt-my-data" target="_blank">Devpost</v-btn> 
     </v-flex>
     <!-- <v-flex shrink>
       hyperlinks I need more space
@@ -28,3 +28,6 @@ export default {
 
 <style lang="css" scoped>
 </style>
+
+
+
