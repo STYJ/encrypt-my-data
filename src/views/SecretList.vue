@@ -157,7 +157,7 @@
               flat
               @click="dialog = false"
             >
-              Gocha!
+              Gotcha!
             </v-btn>
           </v-card-actions>
         </v-card>
