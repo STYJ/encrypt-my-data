@@ -1,4 +1,5 @@
 # encrypt-my-data
+[日本語]()
 ## Project Description
 ### Inspiration
 The need for password managers is because we have too many accounts! We have too many accounts! Even taking a small subcategory of accounts, we still have too many, we don’t want to use the same password because if one account gets compromised, then all the accounts get compromised, so we need password managers to keep track of all the different passwords. However, centralization leaves databases vulnerable to attack. We need to trust the databases and companies. Malicious Employee may also be a problem...<br/>
