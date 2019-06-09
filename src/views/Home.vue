@@ -1,7 +1,7 @@
 <template>
   <v-layout class="home">
     <v-flex>
-      this is my home body
+      Here's nothing.
     </v-flex>
   </v-layout>
 </template>
