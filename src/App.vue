@@ -1,10 +1,11 @@
 <template>
   <v-app>
-    
+
     <v-container fluid fill-height id="app">
       <v-layout column>
         <Header />
         <router-view />
+        <v-spacer/>
         <Footer />
       </v-layout>
     </v-container>
