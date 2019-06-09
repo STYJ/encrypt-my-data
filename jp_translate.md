@@ -1,24 +1,24 @@
 # encrypt-my-data
 
-## Project Description
-工事中...<br>
-### Inspiration
+## プロジェクト概要
+
+### 開発動機
 工事中...<br/>
-### What it does
+### 仕組み
 工事中...<br/>
-### How we built it
+### 取り組み
 工事中...<br/>
-### Accomplishments that we're proud of
+### 貢献
 工事中...<br/>
 
-### Built with
+### ツール
+Vuejs, Javascript.<br/>
+
+### 展望
 <br/>
 
-### Future work
-<br/>
-
-### Authors
-<br/>
+### 著者
+Qiming He, Laige Peng, Simon Tan, Chang Yu, and Poming Lee.<br/>
 
 ## Project setup
 ```
